@@ -27,7 +27,7 @@ def relu_backward(dA, cache):
     Z = cache
     dZ = np.array(dA, copy=True) # just converting dz to a correct object.
     
-    # When z <= 0, you should set dz to 0 as well. 
+    . 
     dZ[Z <= 0] = 0
     
     assert (dZ.shape == Z.shape)
@@ -49,14 +49,14 @@ def sigmoid_backward(dA, cache):
 
 def load_data():
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
-    train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
-    train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
+    train_set_x_orig = np.array(train_dataset["train_set_x"][:]) 
+    train_set_y_orig = np.array(train_dataset["train_set_y"][:]) 
 
     test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r")
-    test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
-    test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
+    test_set_x_orig = np.array(test_dataset["test_set_x"][:]) 
+    test_set_y_orig = np.array(test_dataset["test_set_y"][:]) 
 
-    classes = np.array(test_dataset["list_classes"][:]) # the list of classes
+    classes = np.array(test_dataset["list_classes"][:]) 
     
     train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
@@ -95,7 +95,7 @@ def initialize_parameters_deep(layer_dims):
     L = len(layer_dims)            # number of layers in the network
 
     for l in range(1, L):
-        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) / np.sqrt(layer_dims[l-1]) #*0.01
+        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) / np.sqrt(layer_dims[l-1]) 
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
         
         assert(parameters['W' + str(l)].shape == (layer_dims[l], layer_dims[l-1]))
@@ -138,13 +138,13 @@ def L_model_forward(X, parameters):
     A = X
     L = len(parameters) // 2                  # number of layers in the neural network
     
-    # Implement [LINEAR -> RELU]*(L-1). Add "cache" to the "caches" list.
+    
     for l in range(1, L):
         A_prev = A 
         A, cache = linear_activation_forward(A_prev, parameters['W' + str(l)], parameters['b' + str(l)], activation = "relu")
         caches.append(cache)
     
-    # Implement LINEAR -> SIGMOID. Add "cache" to the "caches" list.
+    .
     AL, cache = linear_activation_forward(A, parameters['W' + str(L)], parameters['b' + str(L)], activation = "sigmoid")
     caches.append(cache)
     
@@ -247,9 +247,7 @@ def predict(X, y, parameters):
         else:
             p[0,i] = 0
     
-    #print results
-    #print ("predictions: " + str(p))
-    #print ("true labels: " + str(y))
+    
     print("Accuracy: "  + str(np.sum((p == y)/m)))
         
     return p
@@ -258,7 +256,7 @@ def print_mislabeled_images(classes, X, y, p):
    
     a = p + y
     mislabeled_indices = np.asarray(np.where(a == 1))
-    plt.rcParams['figure.figsize'] = (40.0, 40.0) # set default size of plots
+    plt.rcParams['figure.figsize'] = (40.0, 40.0) 
     num_images = len(mislabeled_indices[0])
     for i in range(num_images):
         index = mislabeled_indices[1][i]
